@@ -1,0 +1,8 @@
+name: StilesBot
+version: 0.0.1
+description: A basic IRC bot
+dependencies:
+  irc: ">=1.0.0 <2.0.0"
+
+dev_dependencies:
+#  unittest: any
