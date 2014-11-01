@@ -8,6 +8,7 @@
     },
     "logDirectory": "logs",
     "commandPrefix": "!",
+    "nickServPassword": "",
     "mysql": {
         "host": "localhost",
         "port": 3306,

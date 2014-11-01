@@ -20,6 +20,8 @@ class StilesBot extends Bot {
 
     ConnectionPool mysqlPool;
 
+    String nickServPassword;
+
     Client get client => _client;
 
     StilesBot() {
@@ -55,9 +57,19 @@ class StilesBot extends Bot {
                 db: config.mysql.database,
                 max: 10
         );
+
+        if (config.containsKey("nickServPassword")) {
+            nickServPassword = config.nickServPassword;
+        }
     }
 
     void _registerHandlers() {
+        register((ReadyEvent event) {
+            if (nickServPassword != null && nickServPassword != "") {
+                message("NickServ", "IDENTIFY ${nickServPassword}");
+            }
+        });
+
         register((BotJoinEvent event) {
             log("Joined ${event.channel.name}");
         });
