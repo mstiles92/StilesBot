@@ -1,0 +1,18 @@
+{
+    "irc": {
+        "nickname": "StilesBot",
+        "username": "StilesBot",
+        "realname": "mstiles92's IRC Bot",
+        "host": "irc.esper.net",
+        "port": 6667
+    },
+    "logDirectory": "logs",
+    "commandPrefix": "!",
+    "mysql": {
+        "host": "localhost",
+        "port": 3306,
+        "username": "user",
+        "password": "password",
+        "database": "database"
+    }
+}

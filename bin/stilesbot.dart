@@ -1,5 +1,7 @@
 import 'package:irc/irc.dart';
 import 'package:intl/intl.dart';
+import 'package:sqljocky/sqljocky.dart';
+import 'package:json_object/json_object.dart';
 import 'dart:io';
 import 'dart:async';
 
@@ -16,18 +18,43 @@ class StilesBot extends Bot {
     String commandPrefix;
     Iterable<String> commandNames() => commands.keys;
 
+    ConnectionPool mysqlPool;
+
     Client get client => _client;
 
-    StilesBot(BotConfig config, {String logDirectory: "logs", this.commandPrefix: "!"}) {
-        _client = new Client(config);
-        _logLocation = new Directory(logDirectory);
-        _channelLogs = new Directory("${logDirectory}/channels");
+    StilesBot() {
+        _loadConfig();
+
+        _registerHandlers();
+    }
+
+    void _loadConfig() {
+        JsonObject config = new JsonObject.fromJsonString(new File("config.json").readAsStringSync());
+
+        _client = new Client(new BotConfig(
+                nickname: config.irc.nickname,
+                username: config.irc.username,
+                realname: config.irc.realname,
+                host: config.irc.host,
+                port: config.irc.port
+        ));
+
+        _channelLogs = new Directory("${config.logDirectory}/channels");
         if (!_channelLogs.existsSync()) {
-            _channelLogs.create(recursive: true);
+            _channelLogs.createSync(recursive: true);
         }
         _logLocation = _channelLogs.parent;
 
-        _registerHandlers();
+        commandPrefix = config.commandPrefix;
+
+        mysqlPool = new ConnectionPool(
+                host: config.mysql.host,
+                port: config.mysql.port,
+                user: config.mysql.username,
+                password: config.mysql.password,
+                db: config.mysql.database,
+                max: 10
+        );
     }
 
     void _registerHandlers() {

@@ -7,3 +7,5 @@ build/
 *.iws
 .idea/
 .buildlog
+bin/config.json
+*.log
