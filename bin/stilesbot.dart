@@ -1,9 +1,9 @@
-import 'package:irc/irc.dart';
-import 'package:intl/intl.dart';
-import 'package:sqljocky/sqljocky.dart';
-import 'package:json_object/json_object.dart';
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
+import 'package:intl/intl.dart';
+import 'package:irc/irc.dart';
+import 'package:json_object/json_object.dart';
+import 'package:sqljocky/sqljocky.dart';
 
 typedef CommandHandler(CommandEvent event);
 
