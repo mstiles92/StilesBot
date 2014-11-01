@@ -87,8 +87,9 @@ class StilesBot extends Bot {
         });
 
         register((MessageEvent event) {
-            var line = "<${event.from}> ${event.message}";
-            print("<${event.target}>${line}");
+            var timestamp = new DateFormat('HH:mm:ss').format(new DateTime.now());
+            var line = "<${event.from} ${timestamp}> ${event.message}";
+            print("[${event.target}]${line}");
             log(line, channel: event.channel);
         });
 
