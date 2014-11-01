@@ -31,7 +31,8 @@ class StilesBot extends Bot {
     }
 
     void _loadConfig() {
-        JsonObject config = new JsonObject.fromJsonString(new File("config.json").readAsStringSync());
+        var path = new File.fromUri(Platform.script).parent.path;
+        JsonObject config = new JsonObject.fromJsonString(new File("${path}/config.json").readAsStringSync());
 
         _client = new Client(new BotConfig(
                 nickname: config.irc.nickname,
