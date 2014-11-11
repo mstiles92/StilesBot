@@ -117,9 +117,10 @@ class StilesBot extends Bot {
     void handleAsCommand(MessageEvent event) {
         String message = event.message;
 
-        if (message.startsWith(commandPrefix)) {
-            var end = message.contains(" ") ? message.indexOf(" ", commandPrefix.length) : message.length;
-            var command = message.substring(commandPrefix.length, end);
+        if (message.startsWith(commandPrefix) || event.isPrivate) {
+            var start = message.startsWith(commandPrefix) ? commandPrefix.length : 0;
+            var end = message.contains(" ") ? message.indexOf(" ", start) : message.length;
+            var command = message.substring(start, end);
             var args = message.substring(end != message.length ? end + 1 : end).split(" ");
 
             args.removeWhere((arg) => arg.isEmpty || arg == " ");
